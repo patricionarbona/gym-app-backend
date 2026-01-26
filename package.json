@@ -9,6 +9,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test:db": "npm run build && node dist/test-db.js"
+    "test:db": "npm run build && node dist/test-db.js",
+    "db:create:users": "npm run build && node dist/createUsersTable.js"
   }
 }
