@@ -1,16 +1,15 @@
-import express from "express";
-import loginRoute from "./routes/login"
-import { Request, Response } from "express";
-const app = express();
+import 'dotenv/config'
+import app from "./app";
+import { testConnection } from './controllers/database.controller';
 
-app.set("port", 3000);
+const startServer = async () => {
+  await testConnection();
 
-app.use(loginRoute)
+  app.set("port", 3000);
 
-app.post("/isAlive", (req: Request, res: Response) => {
-    console.log("Server is alive");
-    res.send("Server is alive");
-});
+  app.listen(3000, () => {
+    console.log(`🚀 Server running on port ${app.get("port")}`);
+  });
+};
 
-app.listen(3000);
-console.log(`Server on port ${app.get("port")}`);
+startServer();
