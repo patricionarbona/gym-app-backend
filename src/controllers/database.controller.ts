@@ -1,5 +1,5 @@
 import { pool } from "../database";
-
+import { CreateUserParams } from "../interfaces";
 
 export const testConnection = async () => {
   try {
@@ -9,3 +9,17 @@ export const testConnection = async () => {
     console.error("❌ DB Error:", err.message);
   }
 };
+
+
+export const createUserDB = async (userData: CreateUserParams) => {
+  try {
+    const query = 'INSERT INTO usuarios (usuario, correo, password, admin) VALUES (?, ?, ?, ?)' 
+    const [results] = await pool.execute(
+      query,
+      [userData.usuario, userData.correo, userData.password, userData?.admin || false ]
+    )
+    console.log("✅ User added:", results);
+  } catch (err: any) {
+    console.error("❌ Error adding user:", err.message);
+  }
+}
