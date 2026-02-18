@@ -1,14 +1,11 @@
 import { Request, Response } from "express";
+import { CreateUserParams } from "../interfaces";
+import { createUserDB } from "./database.controller";
 
-interface loginRequest {
-    email: string,
-    username: string,
-    password: string
-}
 
 export const signup = async (req: Request, res: Response) => {
-    const newUserData:loginRequest = req.body
-    
+    const newUserData:CreateUserParams = req.body
+    createUserDB(newUserData)
     res.json("signup")
 };
 
