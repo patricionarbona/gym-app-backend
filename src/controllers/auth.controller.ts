@@ -16,14 +16,19 @@ export const comparePassword = async (password: string, receivedPassword: string
 
 export const signup = async (req: Request, res: Response) => {
   const newUserData: CreateUserParams = req.body;
-  //TODO: change type of result
   const result = await createUserDB(newUserData);
+  if(result.success) {
+    const token = jwt.sign({ id: result.insertId }, process.env.JWT_SECRET as string, {
+      expiresIn: "1h",
+    });
   
-  const token = jwt.sign({ id: result }, process.env.JWT_SECRET as string, {
-    expiresIn: "1h",
-  });
-
-  res.json(token);
+    return res.json({token: token});
+  }
+  
+  if(result.errorCode === "ER_DUP_ENTRY") {
+    return res.status(409).json({error: "Correo ya registrado"})
+  }
+  return res.status(400).json({error: result.errorCode})
 };
 
 export const signin = async (req: Request, res: Response) => {
