@@ -18,6 +18,7 @@ export const signup = async (req: Request, res: Response) => {
   const newUserData: CreateUserParams = req.body;
   //TODO: change type of result
   const result = await createUserDB(newUserData);
+  
   const token = jwt.sign({ id: result }, process.env.JWT_SECRET as string, {
     expiresIn: "1h",
   });
