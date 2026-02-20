@@ -16,5 +16,5 @@ export type CreateUserParams = Omit<
 >;
 
 export type CreateUserResult =
-  | { success: true; insertId: number }
-  | { success: false; errorCode?: string };
+  | { success: true; insertId: number, errorCode?: never }
+  | { success: false; errorCode: string, insertId?: never };
