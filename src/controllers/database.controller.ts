@@ -1,7 +1,7 @@
 import { ResultSetHeader } from "mysql2";
 import { pool } from "../database";
 import { CreateUserParams } from "../interfaces";
-import bcrypt from 'bcryptjs'
+import { encryptPassword } from "./auth.controller";
 
 export const testConnection = async () => {
   try {
@@ -11,17 +11,6 @@ export const testConnection = async () => {
     console.error("❌ DB Error:", err.message);
   }
 };
-
-
-//* TODO: Move to other file encrypt & compare
-const encryptPassword = async (password: string) => {
-  const salt = await bcrypt.genSalt(10)
-  return await bcrypt.hash(password, salt)
-}
-
-const comparePassword = async (password: string, receivedPassword: string) => {
-  return await bcrypt.compare(password, receivedPassword)
-}
 
 export const createUserDB = async (userData: CreateUserParams) => {
   try {

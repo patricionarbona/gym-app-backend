@@ -2,8 +2,17 @@ import { Request, Response } from "express";
 import { CreateUserParams } from "../interfaces";
 import { createUserDB } from "./database.controller";
 import jwt from "jsonwebtoken";
+import bcrypt from 'bcryptjs'
 
 
+export const encryptPassword = async (password: string) => {
+  const salt = await bcrypt.genSalt(10)
+  return await bcrypt.hash(password, salt)
+}
+
+export const comparePassword = async (password: string, receivedPassword: string) => {
+  return await bcrypt.compare(password, receivedPassword)
+}
 
 export const signup = async (req: Request, res: Response) => {
   const newUserData: CreateUserParams = req.body;
