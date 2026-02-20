@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import app from "./app";
-import { testConnection } from './controllers/database.controller';
+import { testConnection } from './services/database.service';
 
 const startServer = async () => {
   await testConnection();

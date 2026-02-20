@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CreateUserParams } from "../interfaces";
-import { createUserDB } from "./database.controller";
+import { createUserDB } from "../services/user.service";
 import jwt from "jsonwebtoken";
 import bcrypt from 'bcryptjs'
 

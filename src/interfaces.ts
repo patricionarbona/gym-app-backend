@@ -14,3 +14,7 @@ export type CreateUserParams = Omit<
   UserParams,
   "created_at" | "updated_at" | "last_active_at" | "deleted_at"
 >;
+
+export type CreateUserResult =
+  | { success: true; insertId: number }
+  | { success: false; errorCode?: string };
