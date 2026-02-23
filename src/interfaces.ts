@@ -1,3 +1,12 @@
+import { Request } from "express";
+import { RowDataPacket } from "mysql2";
+export interface UserAuthInfoRequest extends Request {
+  user?: {
+    id: number;
+    iat: number;
+    exp: number;
+  };
+}
 export interface UserParams {
   usuario: string;
   correo: string;
@@ -16,5 +25,5 @@ export type CreateUserParams = Omit<
 >;
 
 export type CreateUserResult =
-  | { success: true; insertId: number, errorCode?: never }
-  | { success: false; errorCode: string, insertId?: never };
+  | { success: true; insertId: number; errorCode?: never }
+  | { success: false; errorCode: string; insertId?: never };
