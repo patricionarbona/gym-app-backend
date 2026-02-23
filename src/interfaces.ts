@@ -7,6 +7,19 @@ export interface UserAuthInfoRequest extends Request {
     exp: number;
   };
 }
+
+export interface UserDB extends RowDataPacket {
+  id: number,
+  usuario: string,
+  correo: string,
+  password: string,
+  admin: boolean,
+  created_at: string,
+  updated_at: string,
+  last_active_at: string,
+  deleted_at: string
+}
+
 export interface UserParams {
   usuario: string;
   correo: string;
