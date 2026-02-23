@@ -15,7 +15,7 @@ export const comparePassword = async (
 ) => {
   return await bcrypt.compare(password, receivedPassword);
 };
-
+//TODO: change time expiresIn
 export const signup = async (req: Request, res: Response) => {
   const newUserData: CreateUserParams = req.body;
   const result = await createUserDB(newUserData);
@@ -24,7 +24,7 @@ export const signup = async (req: Request, res: Response) => {
       { id: result.insertId },
       process.env.JWT_SECRET as string,
       {
-        expiresIn: "1h",
+        expiresIn: "30d",
       },
     );
 
