@@ -24,9 +24,7 @@ async function main() {
       nombre VARCHAR(100) NOT NULL UNIQUE,
       musculo_general VARCHAR(100) NOT NULL,
       musculo_principal VARCHAR(100) NOT NULL,
-      musculo_secundario VARCHAR(100),
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      musculo_secundario VARCHAR(100)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `;
 
