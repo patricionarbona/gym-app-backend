@@ -1,6 +1,5 @@
 import { pool } from "../database";
-import { UserDB } from "../interfaces";
-
+import { CreateEjercicioParams, UserDB } from "../interfaces";
 
 export const testConnection = async () => {
   try {
@@ -13,12 +12,12 @@ export const testConnection = async () => {
 
 export const foundUserById = async (id: number): Promise<UserDB | null> => {
   try {
-    const query = 'SELECT * FROM usuarios WHERE id = ?'
-    const [rows] = await pool.execute<UserDB[]>(query, [id])
-    console.log(rows)
-    return rows.length ? rows[0] : null
-  } catch( err: any) {
-    console.log("DB Error:", err.message)
-    return null
+    const query = "SELECT * FROM usuarios WHERE id = ?";
+    const [rows] = await pool.execute<UserDB[]>(query, [id]);
+    console.log(rows);
+    return rows.length ? rows[0] : null;
+  } catch (err: any) {
+    console.log("DB Error:", err.message);
+    return null;
   }
-}
+};
