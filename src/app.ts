@@ -1,7 +1,8 @@
 import express from "express";
 import { Request, Response } from "express";
 import morgan from "morgan";
-import authRoutes from './routes/auth.routes'
+import authRoutes from "./routes/auth.routes";
+import ejerciciosRoutes from "./routes/ejercicios.routes";
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.post("/isAlive", (req: Request, res: Response) => {
   res.send("Server is alive");
 });
 
-app.use('/api/auth', authRoutes)
+app.use("/api/auth", authRoutes);
+app.use("/api/ejercicio", ejerciciosRoutes);
 
 export default app;
