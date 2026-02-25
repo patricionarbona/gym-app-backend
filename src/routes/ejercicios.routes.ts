@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { verifyToken } from "../middlewares/authJwt";
-import { addEjercicio, getEjercicios } from "../controllers/ejercicios.controller";
+import {
+  addEjercicio,
+  getEjercicios,
+} from "../controllers/ejercicios.controller";
 
 const router = Router();
 
