@@ -54,3 +54,7 @@ export type CreateEjercicioParams = Omit<EjercicioDB, "id">;
 export type CreateEjercicioResult =
   | { ok: true; message: string; id: number }
   | { ok: false; message: string };
+
+  export type GetEjerciciosResult =
+  | { ok: true; result: EjercicioDB[] }
+  | { ok: false; message: string };
