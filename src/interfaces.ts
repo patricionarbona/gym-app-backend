@@ -40,3 +40,21 @@ export type CreateUserParams = Omit<
 export type CreateUserResult =
   | { success: true; insertId: number; errorCode?: never }
   | { success: false; errorCode: string; insertId?: never };
+
+
+export type EjercicioDB = {
+  id: number,
+  nombre: string,
+  musculo_general: string,
+  musculo_principal?: string,
+  musculo_secundario?: string
+}
+
+export type CreateEjercicioParams = Omit<
+  EjercicioDB,
+  "id"
+>
+
+export type CreateEjercicioResult = 
+  | { ok: true; message: string, id: number }
+  | { ok: false; message: string };
