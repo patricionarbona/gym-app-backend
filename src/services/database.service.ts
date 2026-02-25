@@ -1,8 +1,10 @@
-import { ResultSetHeader } from "mysql2";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
 import { pool } from "../database";
 import {
   CreateEjercicioParams,
   CreateEjercicioResult,
+  EjercicioDB,
+  GetEjerciciosResult,
   UserDB,
 } from "../interfaces";
 
@@ -62,6 +64,19 @@ export const createEjercicio = async (
     return {
       ok: false,
       message: `Error al insertar el ejercicio: ${err.message}`,
+    };
+  }
+};
+
+export const getEjercicios = async (): Promise<GetEjerciciosResult> => {
+  try {
+    const query = "SELECT * FROM ejercicios";
+    const [rows] = await pool.execute<RowDataPacket[]>(query);
+    return { ok: true, result: rows as EjercicioDB[] };
+  } catch (err: any) {
+    return {
+      ok: false,
+      message: `Error obteniendo los ejercicios ${err.message}`,
     };
   }
 };
