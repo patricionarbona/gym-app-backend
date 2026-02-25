@@ -1,10 +1,9 @@
 import "dotenv/config";
-import { connect } from "./dbConnection";
+import { pool } from "./database";
 
 async function main() {
-  const conn = await connect();
 
-  const sql = `
+  const sqlUsuarios = `
     CREATE TABLE IF NOT EXISTS usuarios (
       id INT AUTO_INCREMENT PRIMARY KEY,
       usuario VARCHAR(100) NOT NULL,
@@ -19,8 +18,21 @@ async function main() {
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `;
 
-  await conn.execute(sql);
-  await conn.end();
+  const sqlEjercicios = `
+    CREATE TABLE IF NOT EXISTS ejercicios (
+      id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+      nombre VARCHAR(100) NOT NULL UNIQUE,
+      musculo_general VARCHAR(100) NOT NULL,
+      musculo_principal VARCHAR(100) NOT NULL,
+      musculo_secundario VARCHAR(100),
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `;
+
+  await pool.execute(sqlUsuarios);
+  await pool.execute(sqlEjercicios);
+  await pool.end();
 
   console.log("✅ Tabla usuarios creada (o ya existía).");
 }
