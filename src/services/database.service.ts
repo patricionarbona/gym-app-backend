@@ -1,5 +1,10 @@
+import { ResultSetHeader } from "mysql2";
 import { pool } from "../database";
-import { CreateEjercicioParams, UserDB } from "../interfaces";
+import {
+  CreateEjercicioParams,
+  CreateEjercicioResult,
+  UserDB,
+} from "../interfaces";
 
 export const testConnection = async () => {
   try {
@@ -19,5 +24,44 @@ export const foundUserById = async (id: number): Promise<UserDB | null> => {
   } catch (err: any) {
     console.log("DB Error:", err.message);
     return null;
+  }
+};
+
+export const createEjercicio = async (
+  data: CreateEjercicioParams,
+): Promise<CreateEjercicioResult> => {
+  try {
+    const { nombre, musculo_general, musculo_principal, musculo_secundario } =
+      data;
+
+    const sqlQuery = `
+      INSERT INTO ejercicios (nombre, musculo_general, musculo_principal, musculo_secundario) 
+      VALUES (?, ?, ?, ?)
+    `;
+
+    const [result] = await pool.execute<ResultSetHeader>(sqlQuery, [
+      nombre,
+      musculo_general,
+      musculo_principal ?? "",
+      musculo_secundario ?? "",
+    ]);
+
+    if (result.affectedRows === 0) {
+      return {
+        ok: false,
+        message: "No se pudo insertar el ejercicio",
+      };
+    }
+
+    return {
+      ok: true,
+      message: "Ejercicio insertado correctamente",
+      id: result.insertId,
+    };
+  } catch (err: any) {
+    return {
+      ok: false,
+      message: `Error al insertar el ejercicio: ${err.message}`,
+    };
   }
 };
