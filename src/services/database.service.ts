@@ -95,3 +95,19 @@ export const getEjercicioById = async (
     };
   }
 };
+
+export const deleteEjercicioDB = async (id: number) => {
+  try {
+    const query = "DELETE FROM ejercicios WHERE id = ?";
+    const [rows] = await pool.execute<ResultSetHeader>(query, [id]);
+    if (rows.affectedRows === 0) {
+      throw Error("No existe el ejercicio");
+    }
+    return { ok: true, result: rows.info };
+  } catch (err: any) {
+    return {
+      ok: false,
+      result: `Error eliminando el ejercicio: ${err.message}`,
+    };
+  }
+};

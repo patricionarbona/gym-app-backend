@@ -4,6 +4,7 @@ import {
   createEjercicio,
   getEjercicioById,
   getEjercicios as getEjerciciosDB,
+  deleteEjercicioDB,
 } from "../services/database.service";
 
 export const addEjercicio = async (req: Request, res: Response) => {
@@ -31,5 +32,15 @@ export const getEjercicio = async (req: Request, res: Response) => {
     return res.status(400).json({ message: result.result });
   } else {
     return res.status(200).json({ result: result.result });
+  }
+};
+
+export const deleteEjercicio = async (req: Request, res: Response) => {
+  const id = req.params?.id;
+  const result = await deleteEjercicioDB(Number(id));
+  if (!result.ok) {
+    return res.status(400).json({ message: result.result });
+  } else {
+    return res.status(204).send();
   }
 };
