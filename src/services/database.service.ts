@@ -80,3 +80,18 @@ export const getEjercicios = async (): Promise<GetEjerciciosResult> => {
     };
   }
 };
+
+export const getEjercicioById = async (
+  id: number,
+): Promise<{ ok: boolean; result: EjercicioDB | string }> => {
+  try {
+    const query = "SELECT * FROM ejercicios WHERE id = ?;";
+    const [rows] = await pool.execute<RowDataPacket[]>(query, [id]);
+    return { ok: true, result: rows[0] as EjercicioDB };
+  } catch (err: any) {
+    return {
+      ok: false,
+      result: `Error obteniendo el ejercicio: ${err.message}`,
+    };
+  }
+};
