@@ -3,7 +3,7 @@ import { CreateEjercicioParams } from "../interfaces";
 import {
   createEjercicio,
   getEjercicioById,
-  getEjercicios as getEjerciciosDB,
+  getEjerciciosDB,
   deleteEjercicioDB,
 } from "../services/database.service";
 

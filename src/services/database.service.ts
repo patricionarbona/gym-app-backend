@@ -68,7 +68,7 @@ export const createEjercicio = async (
   }
 };
 
-export const getEjercicios = async (): Promise<GetEjerciciosResult> => {
+export const getEjerciciosDB = async (): Promise<GetEjerciciosResult> => {
   try {
     const query = "SELECT * FROM ejercicios";
     const [rows] = await pool.execute<RowDataPacket[]>(query);
