@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { CreateEjercicioParams } from "../interfaces";
 import {
   createEjercicio,
+  getEjercicioById,
   getEjercicios as getEjerciciosDB,
 } from "../services/database.service";
 
@@ -18,6 +19,16 @@ export const getEjercicios = async (req: Request, res: Response) => {
   const result = await getEjerciciosDB();
   if (!result.ok) {
     return res.status(400).json({ message: result.message });
+  } else {
+    return res.status(200).json({ result: result.result });
+  }
+};
+
+export const getEjercicio = async (req: Request, res: Response) => {
+  const idEjercicio = req.params?.id;
+  const result = await getEjercicioById(Number(idEjercicio));
+  if (!result.ok) {
+    return res.status(400).json({ message: result.result });
   } else {
     return res.status(200).json({ result: result.result });
   }
