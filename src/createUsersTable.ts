@@ -2,7 +2,6 @@ import "dotenv/config";
 import { pool } from "./database";
 
 async function main() {
-
   const sqlUsuarios = `
     CREATE TABLE IF NOT EXISTS usuarios (
       id INT AUTO_INCREMENT PRIMARY KEY,
@@ -25,6 +24,19 @@ async function main() {
       musculo_general VARCHAR(100) NOT NULL,
       musculo_principal VARCHAR(100) NOT NULL,
       musculo_secundario VARCHAR(100)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `;
+
+  const sqlRegistroEjercicios = `
+    CREATE TABLE IF NOT EXISTS registro_ejercicios (
+     id INT PRIMARY KEY AUTO_INCREMENT,
+     idUsuario INT NOT NULL,
+     idEntrenoEjercicios INT NOT NULL,
+     peso DECIMAL(5,2) NOT NULL,
+     reps INT NOT NULL,
+     notas TEXT,
+     fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     FOREIGN KEY (idUsuario) REFERENCES usuarios(id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `;
 
