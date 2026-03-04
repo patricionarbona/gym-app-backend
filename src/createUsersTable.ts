@@ -4,7 +4,7 @@ import { pool } from "./database";
 async function main() {
   const sqlUsuarios = `
     CREATE TABLE IF NOT EXISTS usuarios (
-      id INT AUTO_INCREMENT PRIMARY KEY,
+      id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
       usuario VARCHAR(100) NOT NULL,
       correo VARCHAR(150) NOT NULL UNIQUE,
       password VARCHAR(255) NOT NULL,
@@ -30,12 +30,14 @@ async function main() {
   const sqlRegistroEjercicios = `
     CREATE TABLE IF NOT EXISTS registro_ejercicios (
      id INT PRIMARY KEY AUTO_INCREMENT,
+     idEjercicio INT UNSIGNED NOT NULL,
      idUsuario INT NOT NULL,
      idEntrenoEjercicios INT NOT NULL,
      peso DECIMAL(5,2) NOT NULL,
      reps INT NOT NULL,
      notas TEXT,
      fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     FOREIGN KEY (idEjercicio) REFERENCES ejercicios(id),
      FOREIGN KEY (idUsuario) REFERENCES usuarios(id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
   `;
