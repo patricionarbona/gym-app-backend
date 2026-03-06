@@ -5,6 +5,7 @@ import {
   CreateEjercicioResult,
   EjercicioDB,
   GetEjerciciosResult,
+  SaveEjercicioProgress,
   UserDB,
 } from "../interfaces";
 
@@ -108,6 +109,29 @@ export const deleteEjercicioDB = async (id: number) => {
     return {
       ok: false,
       result: `Error eliminando el ejercicio: ${err.message}`,
+    };
+  }
+};
+
+export const saveEjercicioProgressDB = async (data: SaveEjercicioProgress) => {
+  try {
+    const query =
+      "INSERT INTO registro_ejercicios (idEjercicio, idUsuario, peso, reps, notas) VALUES (?, ?, ?, ?, ?)";
+    const [rows] = await pool.execute<ResultSetHeader>(query, [
+      data.idEjercicio,
+      data.idUsuario,
+      data.peso,
+      data.reps,
+      data.notas ?? "",
+    ]);
+    if (rows.affectedRows === 0) {
+      throw Error("No se pudo guardar el progreso");
+    }
+    return { ok: true, result: "Progreso guardado" };
+  } catch (err: any) {
+    return {
+      ok: false,
+      result: `Error guardando el progreso: ${err.message}`,
     };
   }
 };
