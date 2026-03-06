@@ -1,10 +1,11 @@
 import { Request, Response } from "express";
-import { CreateEjercicioParams } from "../interfaces";
+import { CreateEjercicioParams, SaveEjercicioProgress } from "../interfaces";
 import {
   createEjercicio,
   getEjercicioById,
   getEjerciciosDB,
   deleteEjercicioDB,
+  saveEjercicioProgressDB,
 } from "../services/database.service";
 
 export const addEjercicio = async (req: Request, res: Response) => {
@@ -43,4 +44,24 @@ export const deleteEjercicio = async (req: Request, res: Response) => {
   } else {
     return res.status(204).send();
   }
+};
+
+export const saveEjercicioProgress = async (req: Request, res: Response) => {
+  const userId = req.user?.id;
+  const ejercicioId = req.params?.id;
+
+  if (!userId) {
+    return res.status(401).json({ message: "No autenticado" });
+  }
+
+  const newEjercicio: SaveEjercicioProgress = {
+    ...req.body,
+    idEjercicio: ejercicioId,
+    idUsuario: userId,
+  };
+  const result = await saveEjercicioProgressDB(newEjercicio);
+  if (!result.ok) {
+    res.status(400).json({ message: result.result });
+  }
+  return res.status(204).send();
 };
