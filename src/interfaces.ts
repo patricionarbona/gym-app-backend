@@ -8,18 +8,6 @@ export interface UserAuthInfoRequest extends Request {
   };
 }
 
-export interface UserDB extends RowDataPacket {
-  id: number;
-  usuario: string;
-  correo: string;
-  password: string;
-  admin: boolean;
-  created_at: string;
-  updated_at: string;
-  last_active_at: string;
-  deleted_at: string;
-}
-
 export interface UserParams {
   usuario: string;
   correo: string;
@@ -40,6 +28,19 @@ export type CreateUserParams = Omit<
 export type CreateUserResult =
   | { success: true; insertId: number; errorCode?: never }
   | { success: false; errorCode: string; insertId?: never };
+
+//* DB TYPES
+export interface UserDB extends RowDataPacket {
+  id: number;
+  usuario: string;
+  correo: string;
+  password: string;
+  admin: boolean;
+  created_at: string;
+  updated_at: string;
+  last_active_at: string;
+  deleted_at: string;
+}
 
 export type EjercicioDB = {
   id: number;
