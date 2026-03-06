@@ -48,6 +48,16 @@ export type EjercicioDB = {
   musculo_principal: string;
   musculo_secundario: string;
 };
+export type RegistroEjerciciosDB = {
+  id: number;
+  idEjercicio: number;
+  idUsuario: number;
+  idEntrenoEjercicios?: number;
+  peso: number;
+  reps: number;
+  notas: string;
+  fecha: string;
+};
 
 export type CreateEjercicioParams = Omit<EjercicioDB, "id">;
 
@@ -55,6 +65,8 @@ export type CreateEjercicioResult =
   | { ok: true; message: string; id: number }
   | { ok: false; message: string };
 
-  export type GetEjerciciosResult =
+export type GetEjerciciosResult =
   | { ok: true; result: EjercicioDB[] }
   | { ok: false; message: string };
+
+export type SaveEjercicioProgress = Omit<RegistroEjerciciosDB, "id" | "fecha">;
