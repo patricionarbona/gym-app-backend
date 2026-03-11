@@ -134,3 +134,16 @@ export const saveEjercicioProgressDB = async (data: SaveEjercicioProgress) => {
     };
   }
 };
+
+export const getExerciseAllProgressDB = async (id: string | number) => {
+  try {
+    const query = "SELECT * FROM registro_ejercicios WHERE idUsuario = ? ORDER BY fecha";
+    const [rows] = await pool.execute<RowDataPacket[]>(query, [id]);
+    return { ok: true, result: rows };
+  } catch (err: any) {
+    return {
+      ok: false,
+      result: `Error obteniendo el progreso: ${err.message}`,
+    };
+  }
+};
