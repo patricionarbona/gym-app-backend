@@ -19,6 +19,6 @@ router.delete("/:id", deleteEjercicio);
 router.get("/:id/progress", verifyToken, getExerciseAllProgress);
 // router.get('/:id/progress/last')
 // router.get('/:id/progress/max')
-router.post("/:id/progress", verifyToken, saveEjercicioProgress); //TODO: add role
+router.post("/:id/progress", verifyToken, saveEjercicioProgress);
 
 export default router;
