@@ -7,6 +7,7 @@ import {
   deleteEjercicioDB,
   saveEjercicioProgressDB,
   getExerciseAllProgressDB,
+  getExerciseMaxProgressDB,
 } from "../services/database.service";
 
 export const addEjercicio = async (req: Request, res: Response) => {
@@ -73,6 +74,18 @@ export const getExerciseAllProgress = async (req: Request, res: Response) => {
     return res.status(400).json({ message: "No se ha recibido el ejercicio" });
   }
   const result = await getExerciseAllProgressDB(idExercise);
+  if (!result.ok) {
+    res.status(400).json({ message: result.result });
+  }
+  return res.status(200).json({ message: result.result });
+};
+
+export const getExerciseMaxProgress = async (req: Request, res: Response) => {
+  const idExercise = req.user?.id;
+  if (!idExercise) {
+    return res.status(400).json({ message: "No se ha recibido el ejercicio" });
+  }
+  const result = await getExerciseMaxProgressDB(idExercise);
   if (!result.ok) {
     res.status(400).json({ message: result.result });
   }

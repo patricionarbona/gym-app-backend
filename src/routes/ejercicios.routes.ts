@@ -7,6 +7,7 @@ import {
   getEjercicio,
   getEjercicios,
   saveEjercicioProgress,
+  getExerciseMaxProgress,
 } from "../controllers/ejercicios.controller";
 
 const router = Router();
@@ -18,7 +19,7 @@ router.delete("/:id", deleteEjercicio);
 
 router.get("/:id/progress", verifyToken, getExerciseAllProgress);
 // router.get('/:id/progress/last')
-// router.get('/:id/progress/max')
+router.get("/:id/progress/max", verifyToken, getExerciseMaxProgress);
 router.post("/:id/progress", verifyToken, saveEjercicioProgress);
 
 export default router;
